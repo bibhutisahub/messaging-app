@@ -1,0 +1,94 @@
+<html>
+<head><title>Home Page</title>
+
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+input[type=number], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  width:50%;
+  display: flex;
+  justify-content: center;
+}
+</style>
+
+<script type="text/javascript">
+function validate() {
+	var phone = document.mform.toNumber.value;
+	var phoneNum = phone.replace(/[^\d]/g, '');
+	var lmessage= document.mform.message.value;
+    if (phone == "" || lmessage == "") {
+        alert("Phone Number or Message can't be empty");
+        document.mform.toNumber.focus();
+        return false;
+    } else if(phoneNum.length != 10) {  
+    	alert("Please enter a valid 10 digit Phone Number");
+        document.mform.toNumber.focus();
+    	return false;  
+    }else if(lmessage.length > 120) {  
+    	alert("Message is too long");
+        document.mform.message.focus();
+    	return false;  
+    }
+    	
+}
+</script>
+</head>
+<body>
+<p>Welcome to <span th:text="${appName}"></span></p>
+<!-- <p><span th:text="${message}"></span></p> -->
+
+<div class="container">
+  <form name="mform" action="postMessage" method="post" onsubmit="return validate()">
+
+    <label for="toNumber">To Number</label>
+    <input type="text" id="toNumber" name="toNumber" placeholder="Enter the mobile number">
+
+    <label for="message">Message</label>
+    <input type="text" id="message" name="message" placeholder="Write your message">
+    <!-- <label for="message">Message</label>
+    <textarea id="message" name="message" form="mform" placeholder="Write your message"></textarea> -->
+    <input type="submit" value="Send">
+  
+  </form>
+
+</div>
+</body>
+</html>
